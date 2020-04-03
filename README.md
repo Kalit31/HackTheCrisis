@@ -1,6 +1,5 @@
-# hackthecause
-
-A new Flutter project.
+# FinHelp
+This is our idea and prototype for HackTheCause, a Global Hackathon Organised by Garage48 in collaboration with the Government of India.
 
 ## Getting Started
 
