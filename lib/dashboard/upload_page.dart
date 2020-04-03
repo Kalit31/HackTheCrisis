@@ -16,6 +16,11 @@ class _UploadPageState extends State<UploadPage> {
   SharedPreferences sharedPreferences;
   Future getprefs() async {
     sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getStringList("Status") != null) {
+      setState(() {
+        status = sharedPreferences.getStringList("Status");
+      });
+    }
   }
 
   var images = [

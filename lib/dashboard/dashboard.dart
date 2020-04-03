@@ -2,6 +2,8 @@ import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:hackthecause/auth/views/login_page.dart';
 import 'package:hackthecause/auth/views/phoneVerification.dart';
+import 'package:hackthecause/dashboard/profile_page.dart';
+import 'package:hackthecause/dashboard/upload_page.dart';
 
 class DashBoard extends StatefulWidget {
   @override
@@ -9,7 +11,7 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
-  var arr = [LoginPage(), LoginPage(), PhoneVerification()];
+  var arr = [LoginPage(), UploadPage(), ProfilePage()];
   Widget selected;
   int selectedTab = 1;
 

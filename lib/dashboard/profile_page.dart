@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackthecause/utils/Routes.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -60,9 +61,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           arr[index],
                           style: TextStyle(fontFamily: "Poppins", fontSize: 20),
                         ),
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          color: Colors.black,
+                        trailing: GestureDetector(
+                          onTap: () {
+                            Routes.sailor("/funds");
+                          },
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.black,
+                          ),
                         ),
                       );
                     }),
