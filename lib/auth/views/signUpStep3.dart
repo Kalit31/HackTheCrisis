@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
+import 'package:hackthecause/utils/Routes.dart';
 
 class SignUpStep3 extends StatefulWidget {
   @override
@@ -74,6 +75,7 @@ class _LoginStep3State extends State<SignUpStep3> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 GestureDetector(
+                  
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
@@ -91,6 +93,7 @@ class _LoginStep3State extends State<SignUpStep3> {
                     password = passwordController.text;
                     confirmPassword = confirmPassController.text;
                     if (password == confirmPassword) {
+                      Routes.sailor('/dashBoard');
                     } else {
                       Fluttertoast.showToast(
                         msg: "Passwords do not match",

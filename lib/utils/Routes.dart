@@ -1,8 +1,10 @@
+import 'package:hackthecause/Verified.dart';
 import 'package:hackthecause/auth/views/login_page.dart';
 import 'package:hackthecause/auth/views/phoneVerification.dart';
 import 'package:hackthecause/auth/views/signUpStep1.dart';
 import 'package:hackthecause/auth/views/signUpStep2.dart';
 import 'package:hackthecause/auth/views/signUpStep3.dart';
+import 'package:hackthecause/dashboard/dashboard.dart';
 import 'package:sailor/sailor.dart';
 
 class Routes {
@@ -43,6 +45,18 @@ class Routes {
         name: "/signUp3",
         builder: (context, args, params) {
           return SignUpStep3();
+        },
+      ),
+      SailorRoute(
+        name: "/dashBoard",
+        builder: (context, args, params) {
+          return DashBoard();
+        },
+      ),
+       SailorRoute(
+        name: "/verified",
+        builder: (context, args, params) {
+          return VerifiedPage(isApplicable: true,);
         },
       ),
     ]);

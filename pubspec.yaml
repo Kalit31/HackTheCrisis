@@ -16,6 +16,7 @@ dependencies:
   pin_entry_text_field: ^0.1.4
   sailor: ^0.6.0
   fluttertoast: ^4.0.1
+  fancy_bottom_navigation: ^0.3.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
