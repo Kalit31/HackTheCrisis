@@ -7,9 +7,12 @@ import 'package:hackthecause/auth/views/signUpStep2.dart';
 import 'package:hackthecause/auth/views/signUpStep3.dart';
 import 'package:hackthecause/dashboard/dashboard.dart';
 import 'package:hackthecause/dashboard/fund_details.dart';
+import 'package:hackthecause/dashboard/main_dashboard.dart';
 import 'package:hackthecause/general/eligibilityInvestment.dart';
 import 'package:hackthecause/general/eligibilitySector.dart';
 import 'package:hackthecause/general/guidelines.dart';
+import 'package:hackthecause/general/splashScreen.dart';
+import 'package:hackthecause/utils/support.dart';
 import 'package:provider/provider.dart';
 import 'package:sailor/sailor.dart';
 
@@ -94,6 +97,24 @@ class Routes {
             );
           },
           params: [SailorParam<String>(name: 'sector', defaultValue: 'other')]),
+      SailorRoute(
+        name: "/mainDashBoard",
+        builder: (context, args, params) {
+          return MainDashBoard();
+        },
+      ),
+      SailorRoute(
+        name: "/support",
+        builder: (context, args, params) {
+          return Support();
+        },
+      ),
+      SailorRoute(
+        name: "/splash",
+        builder: (context, args, params) {
+          return SplashScreen();
+        },
+      ),
     ]);
   }
 }
