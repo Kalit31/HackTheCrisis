@@ -36,19 +36,20 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
+                height: 30,
                 child: TextField(
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     hintText: "Enter Phone Number",
                   ),
                   showCursor: true,
-                  style: TextStyle(color: Colors.black, fontFamily: "Poppins"),
+                  style: normalBlackStyle,
                 ),
-                height: 30,
               ),
               SizedBox(height: 30),
               Container(
                 width: MediaQuery.of(context).size.width * 0.6,
+                height: 30,
                 child: TextField(
                   obscureText: true,
                   keyboardType: TextInputType.text,
@@ -56,19 +57,14 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Enter Password",
                   ),
                   showCursor: true,
-                  style: TextStyle(color: Colors.black, fontFamily: "Poppins"),
+                  style: normalBlackStyle,
                 ),
-                height: 30,
               ),
               SizedBox(height: 8),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  child: Text("Forgot Password?",
-                      style: TextStyle(
-                          color: Color(0xff4C46D3),
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w700)),
+                  child: Text("Forgot Password?", style: linkTextStyle),
                   margin: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.2),
                 ),
@@ -78,9 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               GestureDetector(
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: Color(0xff4C46D3),
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  decoration: loginButtonDecoration,
                   height: 50,
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: Center(
@@ -97,12 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                 onTap: () {},
               ),
               SizedBox(height: 40),
-              Text("Not registered?",
-                  style: TextStyle(
-                      color: Color(0xff4C46D3),
-                      fontFamily: "Poppins",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w900)),
+              Text("Not registered?", style: linkTextStyle),
               SizedBox(
                 height: 10,
               ),

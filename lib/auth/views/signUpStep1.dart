@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hackthecause/auth/views/customTextWidget.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:hive/hive.dart';
@@ -39,6 +40,10 @@ class _SignUpStep1State extends State<SignUpStep1> {
           child: Container(
             child: Column(
               children: <Widget>[
+                Divider(
+                  color: Colors.transparent,
+                  height: 10,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
@@ -56,60 +61,24 @@ class _SignUpStep1State extends State<SignUpStep1> {
                   height: MediaQuery.of(context).size.height * 0.1,
                   color: Colors.transparent,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter Name",
-                    ),
-                    controller: nameController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
+                CustomTextWidget(
+                  value: "Enter name",
+                  controller: nameController,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter Address",
-                    ),
-                    showCursor: true,
-                    controller: addressController,
-                    style: loginInputText,
-                  ),
-                  height: 30,
+                CustomTextWidget(
+                  value: "Enter Address",
+                  controller: addressController,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter State",
-                    ),
-                    controller: stateController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
+                CustomTextWidget(
+                  value: "Enter State",
+                  controller: stateController,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter City",
-                    ),
-                    controller: cityController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
+                CustomTextWidget(
+                  value: "Enter City",
+                  controller: cityController,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
@@ -142,7 +111,6 @@ class _SignUpStep1State extends State<SignUpStep1> {
                       infoBox.put('address', address);
                       infoBox.put('state', state);
                       infoBox.put('city', city);
-                      infoBox.close();
                       Routes.sailor('/signUp2');
                     } else {
                       Fluttertoast.showToast(

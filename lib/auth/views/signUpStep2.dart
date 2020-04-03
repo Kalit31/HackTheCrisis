@@ -4,6 +4,8 @@ import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:hive/hive.dart';
 
+import 'customTextWidget.dart';
+
 class SignUpStep2 extends StatefulWidget {
   @override
   _LoginStep2State createState() => _LoginStep2State();
@@ -39,6 +41,10 @@ class _LoginStep2State extends State<SignUpStep2> {
           child: Container(
             child: Column(
               children: <Widget>[
+                Divider(
+                  color: Colors.transparent,
+                  height: 10,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
@@ -56,61 +62,17 @@ class _LoginStep2State extends State<SignUpStep2> {
                   height: MediaQuery.of(context).size.height * 0.1,
                   color: Colors.transparent,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter Email",
-                    ),
-                    controller: emailController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
-                ),
+                CustomTextWidget(
+                    value: "Enter Email", controller: emailController),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter GST Number",
-                    ),
-                    controller: gstController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
-                ),
+                CustomTextWidget(
+                    value: "Enter GST Number", controller: gstController),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: "Enter Aadhar Number",
-                    ),
-                    controller: aadharController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
-                ),
+                CustomTextWidget(
+                    value: "Enter Aadhar Number", controller: aadharController),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: "Enter Phone Number",
-                    ),
-                    controller: phoneController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
-                ),
+                CustomTextWidget(
+                    value: "Enter Phone Number", controller: phoneController),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
@@ -133,6 +95,7 @@ class _LoginStep2State extends State<SignUpStep2> {
                     gstNumber = gstController.text;
                     aadharNumber = aadharController.text;
                     phoneNum = phoneController.text;
+
                     if (email.isNotEmpty &&
                         gstNumber.isNotEmpty &&
                         aadharNumber.isNotEmpty &&
@@ -142,7 +105,6 @@ class _LoginStep2State extends State<SignUpStep2> {
                       infoBox.put('gstNumber', gstNumber);
                       infoBox.put('aadharNumber', aadharNumber);
                       infoBox.put('phoneNum', phoneNum);
-                      infoBox.close();
                       Routes.sailor('/phoneVerify');
                     } else {
                       Fluttertoast.showToast(

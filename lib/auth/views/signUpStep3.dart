@@ -98,6 +98,8 @@ class _LoginStep3State extends State<SignUpStep3> {
                   onTap: () {
                     password = passwordController.text;
                     confirmPassword = confirmPassController.text;
+                    print(password);
+                    print(confirmPassword);
                     if (password == confirmPassword) {
                       Routes.sailor('/dashBoard');
                     } else {

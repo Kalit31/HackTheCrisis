@@ -16,7 +16,7 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
     final infoBox = await Hive.openBox('info');
     String phoneNum = "+91" + await infoBox.get('phoneNum');
-
+    print("PHONE NUMBER: " + phoneNum);
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNum,
       timeout: const Duration(seconds: 0),

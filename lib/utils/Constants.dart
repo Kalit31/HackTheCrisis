@@ -18,6 +18,14 @@ TextStyle loginButtonText = TextStyle(
   fontFamily: "Poppins",
 );
 
+TextStyle normalBlackStyle =
+    TextStyle(color: Colors.black, fontFamily: "Poppins");
+
+TextStyle linkTextStyle = TextStyle(
+    color: Color(0xff4C46D3),
+    fontFamily: "Poppins",
+    fontWeight: FontWeight.w700);
+
 TextStyle loginInputText =
     TextStyle(color: Colors.black, fontFamily: "Poppins");
 

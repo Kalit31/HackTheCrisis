@@ -7,6 +7,9 @@ import 'package:hackthecause/auth/views/signUpStep2.dart';
 import 'package:hackthecause/auth/views/signUpStep3.dart';
 import 'package:hackthecause/dashboard/dashboard.dart';
 import 'package:hackthecause/dashboard/fund_details.dart';
+import 'package:hackthecause/general/eligibilityInvestment.dart';
+import 'package:hackthecause/general/eligibilitySector.dart';
+import 'package:hackthecause/general/guidelines.dart';
 import 'package:provider/provider.dart';
 import 'package:sailor/sailor.dart';
 
@@ -62,16 +65,35 @@ class Routes {
         name: "/verified",
         builder: (context, args, params) {
           return VerifiedPage(
-            isApplicable: true,
+            isApplicable: false,
           );
         },
       ),
-        SailorRoute(
-        name: "/funds",
+      SailorRoute(
+          name: "/funds",
+          builder: (context, args, params) {
+            return FundDetails();
+          }),
+      SailorRoute(
+        name: "/guidelines",
         builder: (context, args, params) {
-          return FundDetails();
+          return GuideLines();
         },
       ),
+      SailorRoute(
+        name: "/eliSector",
+        builder: (context, args, params) {
+          return EligibilitySector();
+        },
+      ),
+      SailorRoute(
+          name: "/eliInvestment",
+          builder: (context, args, params) {
+            return EligibilityInvestment(
+              sector: params.param<String>('sector'),
+            );
+          },
+          params: [SailorParam<String>(name: 'sector', defaultValue: 'other')]),
     ]);
   }
 }
