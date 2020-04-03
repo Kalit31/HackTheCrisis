@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "373590806586-dicb59l0remtoqm1d6i0q4lq3fkjhle8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hackthecause",
+            "certificate_hash": "665b53a612815663a705300737d7a06200409a6f"
+          }
+        },
+        {
           "client_id": "373590806586-hdlqb7lvcd51vae4s9rkmr2k5ddjnt40.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
