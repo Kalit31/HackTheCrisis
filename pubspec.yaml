@@ -17,7 +17,9 @@ dependencies:
   sailor: ^0.6.0
   fluttertoast: ^4.0.1
   fancy_bottom_navigation: ^0.3.2
-
+  hive: ^1.4.1+1
+  path_provider: ^1.6.5
+  provider: ^4.0.4
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2

@@ -15,6 +15,13 @@ class _LoginStep3State extends State<SignUpStep3> {
   String confirmPassword = "";
 
   @override
+  void dispose() {
+    passwordController.dispose();
+    confirmPassController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -75,7 +82,6 @@ class _LoginStep3State extends State<SignUpStep3> {
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 GestureDetector(
-                  
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hackthecause/auth/authController.dart';
+import 'package:hackthecause/auth/views/signUpStep3.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
+import 'package:provider/provider.dart';
 
 class PhoneVerification extends StatefulWidget {
   @override
@@ -9,8 +13,39 @@ class PhoneVerification extends StatefulWidget {
 }
 
 class _PhoneVerificationState extends State<PhoneVerification> {
+  String codeSent = "";
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authController = Provider.of<AuthController>(context);
+
+    if (authController.verificationSuccessful == 1) {
+      return Scaffold(
+        body: AlertDialog(
+          title: new Text("Verification Successful"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Next"),
+              onPressed: () {
+                Routes.sailor('/signUp3');
+              },
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (authController.verificationSuccessful == -1) {
+      Fluttertoast.showToast(
+          msg: "Verification Failed! Please try again.",
+          toastLength: Toast.LENGTH_SHORT);
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -48,7 +83,11 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                   child: PinEntryTextField(
                     fields: 6,
                     showFieldAsBox: false,
-                    onSubmit: () {},
+                    onSubmit: (String pin) {
+                      setState(() {
+                        codeSent = pin;
+                      });
+                    },
                   ),
                   height: 30,
                 ),
@@ -69,8 +108,9 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                       ),
                     ),
                   ),
-                  onTap: () {
-                    Routes.sailor('/signUp3');
+                  onTap: () async {
+                    authController.verifyCodeManually(codeSent);
+                    // Routes.sailor('/signUp3');
                   },
                 ),
               ],

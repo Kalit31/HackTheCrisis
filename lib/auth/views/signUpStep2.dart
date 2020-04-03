@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hive/hive.dart';
 
 class SignUpStep2 extends StatefulWidget {
   @override
@@ -18,6 +19,15 @@ class _LoginStep2State extends State<SignUpStep2> {
   String gstNumber = "";
   String aadharNumber = "";
   String phoneNum = "";
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    gstController.dispose();
+    aadharController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +128,7 @@ class _LoginStep2State extends State<SignUpStep2> {
                       ),
                     ),
                   ),
-                  onTap: () {
+                  onTap: () async {
                     email = emailController.text;
                     gstNumber = gstController.text;
                     aadharNumber = aadharController.text;
@@ -127,6 +137,12 @@ class _LoginStep2State extends State<SignUpStep2> {
                         gstNumber.isNotEmpty &&
                         aadharNumber.isNotEmpty &&
                         phoneNum.isNotEmpty) {
+                      final infoBox = await Hive.openBox('info');
+                      infoBox.put('email', email);
+                      infoBox.put('gstNumber', gstNumber);
+                      infoBox.put('aadharNumber', aadharNumber);
+                      infoBox.put('phoneNum', phoneNum);
+                      infoBox.close();
                       Routes.sailor('/phoneVerify');
                     } else {
                       Fluttertoast.showToast(

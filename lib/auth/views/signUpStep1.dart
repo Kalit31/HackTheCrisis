@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hive/hive.dart';
 
 class SignUpStep1 extends StatefulWidget {
   @override
@@ -18,6 +19,15 @@ class _SignUpStep1State extends State<SignUpStep1> {
   String address = "";
   String state = "";
   String city = "";
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    addressController.dispose();
+    stateController.dispose();
+    cityController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +128,7 @@ class _SignUpStep1State extends State<SignUpStep1> {
                       ),
                     ),
                   ),
-                  onTap: () {
+                  onTap: () async {
                     name = nameController.text;
                     address = addressController.text;
                     state = stateController.text;
@@ -127,6 +137,12 @@ class _SignUpStep1State extends State<SignUpStep1> {
                         address.isNotEmpty &&
                         state.isNotEmpty &&
                         city.isNotEmpty) {
+                      final infoBox = await Hive.openBox('info');
+                      infoBox.put('name', name);
+                      infoBox.put('address', address);
+                      infoBox.put('state', state);
+                      infoBox.put('city', city);
+                      infoBox.close();
                       Routes.sailor('/signUp2');
                     } else {
                       Fluttertoast.showToast(
