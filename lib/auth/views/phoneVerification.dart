@@ -24,22 +24,6 @@ class _PhoneVerificationState extends State<PhoneVerification> {
   Widget build(BuildContext context) {
     final authController = Provider.of<AuthController>(context);
 
-    if (authController.verificationSuccessful == 1) {
-      return Scaffold(
-        body: AlertDialog(
-          title: new Text("Verification Successful"),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Next"),
-              onPressed: () {
-                Routes.sailor('/signUp3');
-              },
-            ),
-          ],
-        ),
-      );
-    }
-
     if (authController.verificationSuccessful == -1) {
       Fluttertoast.showToast(
           msg: "Verification Failed! Please try again.",
@@ -104,13 +88,23 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                       decoration: loginButtonDecoration,
                       width: MediaQuery.of(context).size.width * 0.35,
                       child: Center(
-                        child: Text("Verify", style: loginButtonText),
+                        child: Text(
+                            authController.verificationSuccessful == 1
+                                ? "Next"
+                                : "Verify",
+                            style: loginButtonText),
                       ),
                     ),
                   ),
                   onTap: () async {
-                    authController.verifyCodeManually(codeSent);
-                    // Routes.sailor('/signUp3');
+                    if (authController.verificationSuccessful == 1) {
+                      Fluttertoast.showToast(
+                          msg: "Verification Successful!",
+                          toastLength: Toast.LENGTH_SHORT);
+                      Routes.sailor('/signUp3');
+                    } else {
+                      authController.verifyCodeManually(codeSent);
+                    }
                   },
                 ),
               ],
