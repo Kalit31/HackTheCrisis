@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hackthecause/utils/Constants.dart';
 
-class LoginStep3 extends StatefulWidget {
+class SignUpStep3 extends StatefulWidget {
   @override
   _LoginStep3State createState() => _LoginStep3State();
 }
 
-class _LoginStep3State extends State<LoginStep3> {
+class _LoginStep3State extends State<SignUpStep3> {
+  final passwordController = TextEditingController();
+  final confirmPassController = TextEditingController();
+  String password = "";
+  String confirmPassword = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
+        minimum: const EdgeInsets.fromLTRB(16, 32, 16, 16),
         child: SingleChildScrollView(
           child: Container(
             child: Column(
               children: <Widget>[
-                FlatButton(
-                  child: Align(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
                     alignment: Alignment.topLeft,
                     child: Icon(
                       Icons.arrow_back_ios,
                       color: Color(0xff4C46D3),
                     ),
                   ),
-                  onPressed: () {},
                 ),
-                Text(
-                  "Step 3 of 3",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff4C46D3),
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.bold),
-                ),
+                Text("Step 3 of 3", style: loginHeadingText),
                 Divider(
                   height: MediaQuery.of(context).size.height * 0.2,
                   color: Colors.transparent,
@@ -40,13 +44,14 @@ class _LoginStep3State extends State<LoginStep3> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: TextField(
-                    keyboardType: TextInputType.phone,
+                    obscureText: true,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       hintText: "Enter Password",
                     ),
+                    controller: passwordController,
                     showCursor: true,
-                    style:
-                        TextStyle(color: Colors.black, fontFamily: "Poppins"),
+                    style: loginInputText,
                   ),
                   height: 30,
                 ),
@@ -59,9 +64,9 @@ class _LoginStep3State extends State<LoginStep3> {
                     decoration: InputDecoration(
                       hintText: "Confirm Password",
                     ),
+                    controller: confirmPassController,
                     showCursor: true,
-                    style:
-                        TextStyle(color: Colors.black, fontFamily: "Poppins"),
+                    style: loginInputText,
                   ),
                   height: 30,
                 ),
@@ -72,34 +77,33 @@ class _LoginStep3State extends State<LoginStep3> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.2),
-                        decoration: BoxDecoration(
-                            color: Color(0xff4C46D3),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        child: Center(
-                            child: Text(
-                          "Submit",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: "Poppins",
-                          ),
-                        ))),
+                      padding: const EdgeInsets.all(8),
+                      margin: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.2),
+                      decoration: loginButtonDecoration,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      child: Center(
+                        child: Text("Submit", style: loginButtonText),
+                      ),
+                    ),
                   ),
+                  onTap: () {
+                    password = passwordController.text;
+                    confirmPassword = confirmPassController.text;
+                    if (password == confirmPassword) {
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "Passwords do not match",
+                        toastLength: Toast.LENGTH_SHORT,
+                      );
+                    }
+                  },
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 Container(
                   child: Row(
                     children: <Widget>[
-                      Text(
-                        "Already have an account ? ",
-                        style: TextStyle(
-                            color: Colors.black, fontFamily: "Poppins"),
-                      ),
+                      Text("Already have an account ? ", style: loginInputText),
                       GestureDetector(
                         child: Text(
                           "Login",
@@ -108,6 +112,10 @@ class _LoginStep3State extends State<LoginStep3> {
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.bold),
                         ),
+                        onTap: () {
+                          Navigator.pushNamedAndRemoveUntil(context, '/login',
+                              (Route<dynamic> route) => false);
+                        },
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,

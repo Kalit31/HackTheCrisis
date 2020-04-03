@@ -3,15 +3,15 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hackthecause/auth/views/loginStep3.dart';
-import 'package:hackthecause/auth/views/phoneVerification.dart';
+import 'package:hackthecause/utils/Routes.dart';
+import 'package:sailor/sailor.dart';
 
-import 'auth/views/login_page.dart';
-
-void main() => runApp(MyApp());
+void main() async {
+  Routes.createRoutes();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -34,12 +34,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: PhoneVerification());
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/login',
+      onGenerateRoute: Routes.sailor.generator(),
+      navigatorKey: Routes.sailor.navigatorKey,
+      navigatorObservers: [
+        SailorLoggingObserver(),
+        Routes.sailor.navigationStackObserver
+      ],
+    );
   }
 
   void firebaseCloudMessaging_Listeners() {
@@ -81,32 +84,5 @@ class _MyAppState extends State<MyApp> {
     print(title);
     print(body);
     await localNotificationsPlugin.show(0, title, body, platformDetails);
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Text(
-        'Heloo',
-        style: TextStyle(fontSize: 30),
-      )),
-    );
   }
 }

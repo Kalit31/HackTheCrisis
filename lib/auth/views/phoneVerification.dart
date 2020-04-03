@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackthecause/utils/Constants.dart';
+import 'package:hackthecause/utils/Routes.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 
 class PhoneVerification extends StatefulWidget {
@@ -24,16 +26,11 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                       color: Color(0xff4C46D3),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
-                Text(
-                  "Verification",
-                  style: TextStyle(
-                      fontSize: 30,
-                      color: Color(0xff4C46D3),
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.bold),
-                ),
+                Text("Verification", style: loginHeadingText),
                 Divider(
                   height: MediaQuery.of(context).size.height * 0.2,
                   color: Colors.transparent,
@@ -42,10 +39,7 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                   padding: EdgeInsets.all(8),
                   child: Text(
                     "Enter the verification code we just sent you on your mobile number.",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.bold),
+                    style: loginTextInfo,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -65,26 +59,20 @@ class _PhoneVerificationState extends State<PhoneVerification> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.2),
-                        decoration: BoxDecoration(
-                            color: Color(0xff4C46D3),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        child: Center(
-                            child: Text(
-                          "Verify",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontFamily: "Poppins",
-                          ),
-                        ))),
+                      padding: const EdgeInsets.all(8),
+                      margin: EdgeInsets.only(
+                          right: MediaQuery.of(context).size.width * 0.2),
+                      decoration: loginButtonDecoration,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      child: Center(
+                        child: Text("Verify", style: loginButtonText),
+                      ),
+                    ),
                   ),
+                  onTap: () {
+                    Routes.sailor('/signUp3');
+                  },
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               ],
             ),
           ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackthecause/utils/Constants.dart';
+import 'package:hackthecause/utils/Routes.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,13 +20,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.transparent,
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
-              Text(
-                "Welcome To FinHelp",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.bold),
-              ),
+              Text("Welcome To FinHelp", style: welcomeText),
               Divider(
                 height: 20,
                 color: Colors.transparent,
@@ -82,20 +78,23 @@ class _LoginPageState extends State<LoginPage> {
               ),
               GestureDetector(
                 child: Container(
-                    decoration: BoxDecoration(
-                        color: Color(0xff4C46D3),
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Center(
-                        child: Text(
+                  decoration: BoxDecoration(
+                      color: Color(0xff4C46D3),
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: Center(
+                    child: Text(
                       "Login",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.bold),
-                    ))),
+                    ),
+                  ),
+                ),
+                onTap: () {},
               ),
               SizedBox(height: 40),
               Text("Not registered?",
@@ -107,9 +106,10 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 10,
               ),
-              GestureDetector(onTap: (){
-                
-              },
+              GestureDetector(
+                onTap: () {
+                  Routes.sailor('/signUp1');
+                },
                 child: Container(
                     decoration: BoxDecoration(
                         color: Colors.white,
