@@ -3,7 +3,10 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hackthecause/views/login_page.dart';
+import 'package:hackthecause/auth/views/loginStep3.dart';
+import 'package:hackthecause/auth/views/phoneVerification.dart';
+
+import 'auth/views/login_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,13 +34,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoginPage()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: PhoneVerification());
   }
 
   void firebaseCloudMessaging_Listeners() {
