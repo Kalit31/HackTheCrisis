@@ -6,6 +6,9 @@ import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 
 class GuideLines extends StatefulWidget {
+bool profilepage;
+GuideLines({this.profilepage});
+
   @override
   _GuideLinesState createState() => _GuideLinesState();
 }
@@ -26,7 +29,7 @@ class _GuideLinesState extends State<GuideLines>
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+         // physics: NeverScrollableScrollPhysics(),
           child: SafeArea(
             minimum: const EdgeInsets.fromLTRB(0, 0, 0, 16),
             child: SingleChildScrollView(
@@ -92,8 +95,9 @@ class _GuideLinesState extends State<GuideLines>
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 2,
+                    SizedBox(height: 10,),
+                   widget.profilepage?Container(): Expanded(
+                      flex: 3,
                       child: Align(
                         child: GestureDetector(
                           child: Align(
