@@ -61,7 +61,8 @@ class _MainDashBoardState extends State<MainDashBoard> {
                 Image.asset('images/dashboard.png',
                     height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width * 0.8),
-                Timeline(lineColor: review?Color(0xff4C46D3):Colors.grey,
+                Timeline(
+                  lineColor: review ? Color(0xff4C46D3) : Colors.grey,
                   children: <Widget>[
                     DashboardItem(
                       value: "Business is Eligible",
@@ -120,7 +121,7 @@ class DashboardItem extends StatelessWidget {
       child: Text(
         value,
         style: TextStyle(
-            fontSize: 30,
+            fontSize: 28,
             fontFamily: "Poppins",
             color: completed ? Color(0xff4C46D3) : Colors.grey),
       ),

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
 
 class AuthController extends ChangeNotifier {
   String smsVerificationCode = "";
@@ -51,30 +54,69 @@ class AuthController extends ChangeNotifier {
     signInWithCredentials(credential);
   }
 
-  Future<void> signUpUser() async {
+  Future<bool> signUpUser() async {
+    print("Here");
     final infoBox = await Hive.openBox('info');
     String name = await infoBox.get('name');
     String address = await infoBox.get('address');
-    String state = await infoBox.get('name');
-    String city = await infoBox.get('name');
-    String email = await infoBox.get('name');
-    String aadharNumber = await infoBox.get('name');
-    String gstNumber = await infoBox.get('name');
+    String state = await infoBox.get('state');
+    String city = await infoBox.get('city');
+    String email = await infoBox.get('email');
+    String aadharNumber = await infoBox.get('aadharNumber');
+    String gstNumber = await infoBox.get('gstNumber');
     String phoneNum = await infoBox.get('phoneNum');
     String password = await infoBox.get('password');
+    print(name);
+    print(address);
+    print(state);
+    print(city);
+    print(email);
+    print(aadharNumber);
+    print(gstNumber);
+    print(phoneNum);
+    print(password);
+    try {
+      var response = await http.post(
+        'http://finhelp-api.herokuapp.com/register/signup/',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "address": address,
+          "state": state,
+          "city": city,
+          "email": email,
+          "aadhar_no": int.parse(aadharNumber),
+          "gstin": gstNumber,
+          "mobile_number": int.parse(phoneNum),
+        }),
+      );
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        String idToken = json.decode(response.body)['idtoken'];
+        print("ID TOKEN: " + idToken);
+        await infoBox.put("idToken", idToken);
+        var finalResponse = await http.post(
+          'http://finhelp-api.herokuapp.com/register/signup/',
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'X-AUTH': idToken
+          },
+          body: jsonEncode(
+              <String, String>{"password": password, "password1": password}),
+        );
 
-    Map<String, String> body = {
-      "name": name,
-      "address": address,
-      "state": state,
-      "city": city,
-      "email": email,
-      "aadharNumber": aadharNumber,
-      "gstNumber": gstNumber,
-      "phoneNumber": phoneNum,
-      "password": password
-    };
+        if (finalResponse.statusCode == 200) {
+          return true;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } catch (err) {
+      print("Error: " + err.toString());
+      return false;
+    }
   }
 }
-
-Future<void> loginUser() async {}

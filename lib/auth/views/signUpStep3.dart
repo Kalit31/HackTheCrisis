@@ -3,6 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+
+import '../authController.dart';
 
 class SignUpStep3 extends StatefulWidget {
   @override
@@ -97,14 +100,31 @@ class _LoginStep3State extends State<SignUpStep3> {
                     ),
                   ),
                   onTap: () async {
+                    final authController =
+                        Provider.of<AuthController>(context, listen: false);
+
                     password = passwordController.text;
                     confirmPassword = confirmPassController.text;
-                    print(password);
-                    print(confirmPassword);
+
                     if (password == confirmPassword) {
                       final infoBox = await Hive.openBox('info');
                       infoBox.put('password', password);
-                      Routes.sailor('/dashBoard');
+                      authController.signUpUser().then((result) {
+                        if (result) {
+                          Fluttertoast.showToast(
+                              msg: "User registered successfully",
+                              toastLength: Toast.LENGTH_SHORT);
+                          Routes.sailor('/dashBoard');
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "SignUp Failed.",
+                              toastLength: Toast.LENGTH_SHORT);
+                        }
+                      }).catchError((err) {
+                        Fluttertoast.showToast(
+                            msg: err.toString(),
+                            toastLength: Toast.LENGTH_SHORT);
+                      });
                     } else {
                       Fluttertoast.showToast(
                         msg: "Passwords do not match",

@@ -111,6 +111,12 @@ class _SignUpStep1State extends State<SignUpStep1> {
                       infoBox.put('address', address);
                       infoBox.put('state', state);
                       infoBox.put('city', city);
+                      print('-------------');
+                      print(name);
+                      print(address);
+                      print(state);
+                      print(city);
+                      print('-------------');
                       Routes.sailor('/signUp2');
                     } else {
                       Fluttertoast.showToast(

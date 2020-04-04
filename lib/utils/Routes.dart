@@ -11,6 +11,7 @@ import 'package:hackthecause/dashboard/main_dashboard.dart';
 import 'package:hackthecause/general/eligibilityInvestment.dart';
 import 'package:hackthecause/general/eligibilitySector.dart';
 import 'package:hackthecause/general/guidelines.dart';
+import 'package:hackthecause/general/otherInvestment.dart';
 import 'package:hackthecause/general/splashScreen.dart';
 import 'package:hackthecause/utils/support.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,8 @@ class Routes {
       SailorRoute(
         name: "/signUp3",
         builder: (context, args, params) {
-          return SignUpStep3();
+          return ChangeNotifierProvider(
+              create: (context) => AuthController(), child: SignUpStep3());
         },
       ),
       SailorRoute(
@@ -109,6 +111,12 @@ class Routes {
         name: "/support",
         builder: (context, args, params) {
           return Support();
+        },
+      ),
+      SailorRoute(
+        name: "/otherInvestment",
+        builder: (context, args, params) {
+          return OtherInvestment();
         },
       ),
       SailorRoute(
