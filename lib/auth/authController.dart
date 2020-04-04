@@ -55,7 +55,6 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<bool> signUpUser() async {
-    print("Here");
     final infoBox = await Hive.openBox('info');
     String name = await infoBox.get('name');
     String address = await infoBox.get('address');
@@ -66,15 +65,7 @@ class AuthController extends ChangeNotifier {
     String gstNumber = await infoBox.get('gstNumber');
     String phoneNum = await infoBox.get('phoneNum');
     String password = await infoBox.get('password');
-    print(name);
-    print(address);
-    print(state);
-    print(city);
-    print(email);
-    print(aadharNumber);
-    print(gstNumber);
-    print(phoneNum);
-    print(password);
+
     try {
       var response = await http.post(
         'http://finhelp-api.herokuapp.com/register/signup/',
@@ -82,6 +73,7 @@ class AuthController extends ChangeNotifier {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
+          "name": name,
           "address": address,
           "state": state,
           "city": city,
@@ -109,7 +101,7 @@ class AuthController extends ChangeNotifier {
         if (finalResponse.statusCode == 200) {
           return true;
         } else {
-          return true;
+          return false;
         }
       } else {
         return false;

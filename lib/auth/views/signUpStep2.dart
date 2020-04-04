@@ -106,13 +106,8 @@ class _LoginStep2State extends State<SignUpStep2> {
                       infoBox.put('gstNumber', gstNumber);
                       infoBox.put('aadharNumber', aadharNumber);
                       infoBox.put('phoneNum', phoneNum);
-                      print('-----------------');
-                      print(email);
-                      print(gstNumber);
-                      print(aadharNumber);
-                      print(phoneNum);
-                      print('-----------------');
-                      //  Routes.sailor('/phoneVerify');
+
+                      Routes.sailor('/phoneVerify');
                     } else {
                       Fluttertoast.showToast(
                         msg:

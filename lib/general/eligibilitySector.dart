@@ -103,9 +103,13 @@ class _EligibilitySectorState extends State<EligibilitySector> {
                     if (selectedSector != "") {
                       final infoBox = await Hive.openBox('info');
                       infoBox.put('sector', selectedSector);
-
-                      Routes.sailor.navigate("/eliInvestment",
-                          params: {'sector': selectedSector});
+                      print(selectedSector);
+                      if (selectedSector == "Other") {
+                        Routes.sailor('/otherLosses');
+                      } else {
+                        Routes.sailor.navigate("/eliInvestment",
+                            params: {'sector': selectedSector});
+                      }
                     } else
                       Fluttertoast.showToast(
                           msg: "Please select a sector",

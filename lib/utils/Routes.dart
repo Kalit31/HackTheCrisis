@@ -11,7 +11,8 @@ import 'package:hackthecause/dashboard/main_dashboard.dart';
 import 'package:hackthecause/general/eligibilityInvestment.dart';
 import 'package:hackthecause/general/eligibilitySector.dart';
 import 'package:hackthecause/general/guidelines.dart';
-import 'package:hackthecause/general/otherInvestment.dart';
+import 'package:hackthecause/general/otherLosses.dart';
+import 'package:hackthecause/general/reportLosses.dart';
 import 'package:hackthecause/general/splashScreen.dart';
 import 'package:hackthecause/utils/support.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +85,9 @@ class Routes {
       SailorRoute(
         name: "/guidelines",
         builder: (context, args, params) {
-          return GuideLines(profilepage: false,);
+          return GuideLines(
+            profilepage: false,
+          );
         },
       ),
       SailorRoute(
@@ -114,15 +117,21 @@ class Routes {
         },
       ),
       SailorRoute(
-        name: "/otherInvestment",
+        name: "/otherLosses",
         builder: (context, args, params) {
-          return OtherInvestment();
+          return OtherLosses();
         },
       ),
       SailorRoute(
         name: "/splash",
         builder: (context, args, params) {
           return SplashScreen();
+        },
+      ),
+      SailorRoute(
+        name: "/reportLosses",
+        builder: (context, args, params) {
+          return ReportLosses();
         },
       ),
     ]);

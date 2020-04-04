@@ -133,8 +133,7 @@ class _EligibilityInvestmentState extends State<EligibilityInvestment> {
                     if (selectedBox >= 0 && selectedBox <= 2) {
                       final infoBox = await Hive.openBox('info');
                       infoBox.put('investmentIndex', selectedBox);
-                      Routes.sailor.navigate("/verified",
-                          params: {'isApplicable': true});
+                      Routes.sailor('/reportLosses');
                     } else {
                       Routes.sailor.navigate("/verified",
                           params: {'isApplicable': false});
