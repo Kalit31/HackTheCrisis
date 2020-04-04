@@ -3,6 +3,7 @@ import 'package:hackthecause/general/documentGuidelines.dart';
 import 'package:hackthecause/general/eligibilityGuidelines.dart';
 import 'package:hackthecause/general/generalGuidelines.dart';
 import 'package:hackthecause/utils/Constants.dart';
+import 'package:hackthecause/utils/Routes.dart';
 
 class GuideLines extends StatefulWidget {
   @override
@@ -111,7 +112,9 @@ class _GuideLinesState extends State<GuideLines>
                               ),
                             ),
                           ),
-                          onTap: () async {},
+                          onTap: () async {
+                            Routes.sailor('/eliSector');
+                          },
                         ),
                       ),
                     ),

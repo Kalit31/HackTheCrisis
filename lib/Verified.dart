@@ -84,11 +84,15 @@ class _VerifiedPageState extends State<VerifiedPage> {
                         ),
                       ),
                       onTap: () {
-                        Routes.sailor('/dashBoard');
+                        Navigator.pushNamedAndRemoveUntil(context, '/dashBoard',
+                            (Route<dynamic> route) => false);
                       },
                     )
                   : GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            '/guidelines', (Route<dynamic> route) => false);
+                      },
                       child: Container(
                           decoration: BoxDecoration(
                               color: Colors.white,

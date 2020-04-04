@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hive/hive.dart';
 
 class EligibilitySector extends StatefulWidget {
   @override
@@ -97,9 +99,17 @@ class _EligibilitySectorState extends State<EligibilitySector> {
                       ),
                     ),
                   ),
-                  onTap: () {
-                    Routes.sailor.navigate("/eliInvestment",
-                        params: {'sector': selectedSector});
+                  onTap: () async {
+                    if (selectedSector != "") {
+                      final infoBox = await Hive.openBox('info');
+                      infoBox.put('sector', selectedSector);
+
+                      Routes.sailor.navigate("/eliInvestment",
+                          params: {'sector': selectedSector});
+                    } else
+                      Fluttertoast.showToast(
+                          msg: "Please select a sector",
+                          toastLength: Toast.LENGTH_SHORT);
                   },
                 )
               ],

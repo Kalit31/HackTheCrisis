@@ -65,13 +65,15 @@ class Routes {
         },
       ),
       SailorRoute(
-        name: "/verified",
-        builder: (context, args, params) {
-          return VerifiedPage(
-            isApplicable: false,
-          );
-        },
-      ),
+          name: "/verified",
+          builder: (context, args, params) {
+            bool isApplicable = params.param<bool>('isApplicable');
+            print("VALUE: " + isApplicable.toString());
+            return VerifiedPage(
+              isApplicable: isApplicable,
+            );
+          },
+          params: [SailorParam<bool>(name: 'isApplicable')]),
       SailorRoute(
           name: "/funds",
           builder: (context, args, params) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hackthecause/utils/Routes.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

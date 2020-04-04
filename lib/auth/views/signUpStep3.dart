@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hive/hive.dart';
 
 class SignUpStep3 extends StatefulWidget {
   @override
@@ -95,12 +96,14 @@ class _LoginStep3State extends State<SignUpStep3> {
                       ),
                     ),
                   ),
-                  onTap: () {
+                  onTap: () async {
                     password = passwordController.text;
                     confirmPassword = confirmPassController.text;
                     print(password);
                     print(confirmPassword);
                     if (password == confirmPassword) {
+                      final infoBox = await Hive.openBox('info');
+                      infoBox.put('password', password);
                       Routes.sailor('/dashBoard');
                     } else {
                       Fluttertoast.showToast(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackthecause/utils/Constants.dart';
+import 'package:hackthecause/utils/Routes.dart';
+import 'package:hive/hive.dart';
 
 class EligibilityInvestment extends StatefulWidget {
   final String sector;
@@ -11,12 +13,12 @@ class EligibilityInvestment extends StatefulWidget {
 
 class _EligibilityInvestmentState extends State<EligibilityInvestment> {
   final sectorInvestmentMap = {
-    "Service Sector": [50000, 200000],
-    "Manufacturing Sector": [60000, 500000],
-    "Other": [10000, 100000]
+    "Service Sector": [1000000, 20000000, 50000000],
+    "Manufacturing Sector": [2500000, 50000000, 100000000],
+    "Other": [100, 10000, 100000]
   };
   String selectedCategory;
-
+  int selectedBox = -1;
   @override
   Widget build(BuildContext context) {
     String selectedSector = widget.sector;
@@ -81,21 +83,34 @@ class _EligibilityInvestmentState extends State<EligibilityInvestment> {
                   height: MediaQuery.of(context).size.height * 0.05,
                   color: Colors.transparent,
                 ),
-                sectorWidget("<" + '\u20B9' + range[0].toString()),
+                sectorWidget("<" + '\u20B9' + range[0].toString(), 0),
                 Divider(
                   height: MediaQuery.of(context).size.height * 0.05,
                   color: Colors.transparent,
                 ),
-                sectorWidget('\u20B9' +
-                    range[0].toString() +
-                    ' - ' +
+                sectorWidget(
                     '\u20B9' +
-                    range[1].toString()),
+                        range[0].toString() +
+                        ' - ' +
+                        '\u20B9' +
+                        range[1].toString(),
+                    1),
                 Divider(
                   height: MediaQuery.of(context).size.height * 0.05,
                   color: Colors.transparent,
                 ),
-                sectorWidget(">" + '\u20B9' + range[1].toString()),
+                sectorWidget(
+                    '\u20B9' +
+                        range[1].toString() +
+                        ' - ' +
+                        '\u20B9' +
+                        range[2].toString(),
+                    2),
+                Divider(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  color: Colors.transparent,
+                ),
+                sectorWidget(">" + '\u20B9' + range[2].toString(), 3),
                 Divider(
                   height: MediaQuery.of(context).size.height * 0.05,
                   color: Colors.transparent,
@@ -114,6 +129,17 @@ class _EligibilityInvestmentState extends State<EligibilityInvestment> {
                       ),
                     ),
                   ),
+                  onTap: () async {
+                    if (selectedBox >= 0 && selectedBox <= 2) {
+                      final infoBox = await Hive.openBox('info');
+                      infoBox.put('investmentIndex', selectedBox);
+                      Routes.sailor.navigate("/verified",
+                          params: {'isApplicable': true});
+                    } else {
+                      Routes.sailor.navigate("/verified",
+                          params: {'isApplicable': false});
+                    }
+                  },
                 )
               ],
             ),
@@ -123,11 +149,12 @@ class _EligibilityInvestmentState extends State<EligibilityInvestment> {
     );
   }
 
-  Widget sectorWidget(String sector) {
+  Widget sectorWidget(String sector, int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
           selectedCategory = sector;
+          selectedBox = index;
         });
       },
       child: Container(
