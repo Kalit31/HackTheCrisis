@@ -39,7 +39,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+<<<<<<< HEAD
       initialRoute: '/signUp3',
+=======
+      initialRoute: '/splash',
+>>>>>>> 29bb474d054dca38f9a6f23629fbcc38c8022fd9
       onGenerateRoute: Routes.sailor.generator(),
       navigatorKey: Routes.sailor.navigatorKey,
       navigatorObservers: [

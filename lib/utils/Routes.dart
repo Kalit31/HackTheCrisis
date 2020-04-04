@@ -84,7 +84,7 @@ class Routes {
       SailorRoute(
         name: "/guidelines",
         builder: (context, args, params) {
-          return GuideLines();
+          return GuideLines(profilepage: false,);
         },
       ),
       SailorRoute(

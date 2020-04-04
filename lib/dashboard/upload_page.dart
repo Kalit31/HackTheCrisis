@@ -77,6 +77,7 @@ class _UploadPageState extends State<UploadPage> {
                       color: Color(0xff4C46D3)),
                 ),
               ),
+              SizedBox(height: 25),
               Expanded(
                 child: SingleChildScrollView(
                   child: ListView.builder(
@@ -130,7 +131,8 @@ class _UploadPageState extends State<UploadPage> {
                                       margin: EdgeInsets.fromLTRB(10, 0, 0, 20),
                                       child: Text(
                                         name[index],
-                                        style: TextStyle(fontWeight: FontWeight.w700,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
                                             fontSize: 20,
                                             fontFamily: "Poppins"),
                                       )),
@@ -167,7 +169,8 @@ class _UploadPageState extends State<UploadPage> {
                         );
                       }),
                 ),
-              )
+              ),
+              SizedBox(height:20)
             ],
           ),
         ),

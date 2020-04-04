@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackthecause/general/guidelines.dart';
 import 'package:hackthecause/utils/Routes.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -17,16 +18,28 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
             child: Stack(
           children: <Widget>[
-            Align(alignment: Alignment.topLeft,
-                          child: Container(
-                            margin: EdgeInsets.all(20),
-                            child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        "/login", (Route<dynamic> route) => false);
-                  },
-                  child: Image.asset("images/logout.png")),
-                          ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/login", (Route<dynamic> route) => false);
+                    },
+                    child: Image.asset("images/logout.png")),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                margin: EdgeInsets.all(20),
+                child: GestureDetector(
+                    onTap: () {
+                      Routes.sailor("/support");
+                    },
+                    child: Image.asset("images/help.png")),
+              ),
             ),
             Column(
               children: <Widget>[
@@ -80,7 +93,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             trailing: GestureDetector(
                               onTap: () {
-                                Routes.sailor(routes[index]);
+                                if (index != 0) {
+                                  Routes.sailor(routes[index]);
+                                } else {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => new GuideLines(
+                                            profilepage: true,
+                                          )));
+                                }
                               },
                               child: Icon(
                                 Icons.arrow_forward_ios,
