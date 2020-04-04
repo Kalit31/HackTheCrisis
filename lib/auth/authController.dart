@@ -84,12 +84,13 @@ class AuthController extends ChangeNotifier {
         }),
       );
       print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         String idToken = json.decode(response.body)['idtoken'];
         print("ID TOKEN: " + idToken);
         await infoBox.put("idToken", idToken);
         var finalResponse = await http.post(
-          'http://finhelp-api.herokuapp.com/register/signup/',
+          'http://finhelp-api.herokuapp.com/register/set-password/',
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'X-AUTH': idToken
@@ -97,7 +98,7 @@ class AuthController extends ChangeNotifier {
           body: jsonEncode(
               <String, String>{"password": password, "password1": password}),
         );
-
+        print(finalResponse.body);
         if (finalResponse.statusCode == 200) {
           return true;
         } else {
