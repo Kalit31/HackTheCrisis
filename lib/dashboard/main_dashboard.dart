@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hackthecause/dashboard/upload_page.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Timeline.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+List completed = ["True", "True", "True", "True"];
 
 class MainDashBoard extends StatefulWidget {
   @override
@@ -8,6 +12,33 @@ class MainDashBoard extends StatefulWidget {
 }
 
 class _MainDashBoardState extends State<MainDashBoard> {
+  bool documentsuploaded = false;
+  bool review = false;
+  SharedPreferences sharedPreferences;
+  @override
+  void initState() {
+    getprefs();
+    super.initState();
+  }
+
+  Future getprefs() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getStringList("Status") != null) {
+      setState(() {
+        List status = sharedPreferences.getStringList("Status");
+        if (status[1] == completed[1] &&
+            status[0] == completed[0] &&
+            status[2] == completed[2] &&
+            status[3] == completed[3]) {
+          print(status.length);
+          documentsuploaded = true;
+          review = true;
+        } else
+          print("false");
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +62,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
                 Image.asset('images/dashboard.png',
                     height: MediaQuery.of(context).size.height * 0.25,
                     width: MediaQuery.of(context).size.width * 0.8),
-                Timeline(
+                Timeline(lineColor: review?Color(0xff4C46D3):Colors.grey,
                   children: <Widget>[
                     DashboardItem(
                       value: "Business is Eligible",
@@ -39,11 +70,11 @@ class _MainDashBoardState extends State<MainDashBoard> {
                     ),
                     DashboardItem(
                       value: "Documents Uploaded",
-                      completed: false,
+                      completed: documentsuploaded,
                     ),
                     DashboardItem(
                       value: "Submitted for review",
-                      completed: false,
+                      completed: review,
                     ),
                     DashboardItem(
                       value: "Funds Approved",
@@ -54,11 +85,12 @@ class _MainDashBoardState extends State<MainDashBoard> {
                     Icon(Icons.check_circle, color: Color(0xff4C46D3)),
                     Icon(
                       Icons.check_circle,
-                      color: Colors.grey,
+                      color:
+                          documentsuploaded ? Color(0xff4C46D3) : Colors.grey,
                     ),
                     Icon(
                       Icons.check_circle,
-                      color: Colors.grey,
+                      color: review ? Color(0xff4C46D3) : Colors.grey,
                     ),
                     Icon(
                       Icons.check_circle,

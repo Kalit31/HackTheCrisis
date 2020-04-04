@@ -9,6 +9,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   List arr = ["Guidelines", "Funds Recieved", "Edit Details"];
   List images = ["guidelines.png", "funds.png", "details.png"];
+  List routes = ["/guidelines", "/funds", "/funds"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,19 +56,23 @@ class _ProfilePageState extends State<ProfilePage> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: 3,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Image.asset("images/" + images[index]),
-                        title: Text(
-                          arr[index],
-                          style: TextStyle(fontFamily: "Poppins", fontSize: 20),
-                        ),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            Routes.sailor("/funds");
-                          },
-                          child: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.black,
+                      return Container(
+                        height: 100,
+                        child: ListTile(
+                          leading: Image.asset("images/" + images[index]),
+                          title: Text(
+                            arr[index],
+                            style:
+                                TextStyle(fontFamily: "Poppins", fontSize: 20),
+                          ),
+                          trailing: GestureDetector(
+                            onTap: () {
+                              Routes.sailor(routes[index]);
+                            },
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       );

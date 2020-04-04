@@ -88,7 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.popAndPushNamed(context, "/dashBoard");
+                },
               ),
               SizedBox(height: 40),
               Text("Not registered?", style: linkTextStyle),
