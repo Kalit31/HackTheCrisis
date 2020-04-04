@@ -114,16 +114,14 @@ class _LoginStep3State extends State<SignUpStep3> {
                           Fluttertoast.showToast(
                               msg: "User registered successfully",
                               toastLength: Toast.LENGTH_SHORT);
-                          Routes.sailor('/dashBoard');
+                          Routes.sailor('/guidelines');
                         } else {
                           Fluttertoast.showToast(
                               msg: "SignUp Failed.",
                               toastLength: Toast.LENGTH_SHORT);
                         }
                       }).catchError((err) {
-                        Fluttertoast.showToast(
-                            msg: err.toString(),
-                            toastLength: Toast.LENGTH_SHORT);
+                       
                       });
                     } else {
                       Fluttertoast.showToast(

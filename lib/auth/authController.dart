@@ -26,7 +26,8 @@ class AuthController extends ChangeNotifier {
         signInWithCredentials(credential);
       },
       verificationFailed: (AuthException exception) {
-        print('${exception.message}');
+        print('exception :${exception.message}');
+        
         verificationSuccessful = -1;
         notifyListeners();
       },

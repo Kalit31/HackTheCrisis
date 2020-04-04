@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:hackthecause/general/guidelines.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
+SharedPreferences sharedPreferences;
+
 class _ProfilePageState extends State<ProfilePage> {
   List arr = ["Guidelines", "Funds Recieved", "Edit Details"];
   List images = ["guidelines.png", "funds.png", "details.png"];
   List routes = ["/guidelines", "/funds", "/funds"];
+
+  Future getprefs() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void initState() {
+    getprefs();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +38,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 margin: EdgeInsets.all(20),
                 child: GestureDetector(
                     onTap: () {
+                      List<String> status = [
+                        "False",
+                        "False",
+                        "False",
+                        "False"
+                      ];
+                      if (sharedPreferences.getStringList("Status") != null) {
+                        sharedPreferences.setStringList("Status", status);
+                      }
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           "/login", (Route<dynamic> route) => false);
                     },
