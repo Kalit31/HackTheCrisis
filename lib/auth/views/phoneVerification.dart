@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/auth/authController.dart';
-import 'package:hackthecause/auth/views/signUpStep3.dart';
+
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';

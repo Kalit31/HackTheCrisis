@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackthecause/dashboard/upload_page.dart';
-import 'package:hackthecause/utils/Constants.dart';
+
 import 'package:hackthecause/utils/Timeline.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

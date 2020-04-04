@@ -130,13 +130,13 @@ class _UploadPageState extends State<UploadPage> {
                                       margin: EdgeInsets.fromLTRB(10, 0, 0, 20),
                                       child: Text(
                                         name[index],
-                                        style: TextStyle(
+                                        style: TextStyle(fontWeight: FontWeight.w700,
                                             fontSize: 20,
                                             fontFamily: "Poppins"),
                                       )),
                                   Container(
                                       margin:
-                                          EdgeInsets.only(bottom: 10, left: 5),
+                                          EdgeInsets.only(bottom: 10, left: 10),
                                       width: 1,
                                       height: 40,
                                       color: Colors.black),

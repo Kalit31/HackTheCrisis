@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 
@@ -8,6 +9,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController phoneController, passwordController;
+  @override
+  void initState() {
+    phoneController = TextEditingController();
+    passwordController = TextEditingController();
+    super.initState();
+  }
+
+  String phoneno, password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: 30,
                 child: TextField(
+                  controller: phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
                     hintText: "Enter Phone Number",
@@ -51,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: 30,
                 child: TextField(
+                  controller: passwordController,
                   obscureText: true,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -89,7 +102,16 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.popAndPushNamed(context, "/dashBoard");
+                  phoneno = phoneController.text;
+                  password = passwordController.text;
+                  if (phoneno.length == 10 && password.isNotEmpty) {
+                    Navigator.popAndPushNamed(context, "/dashBoard");
+                  } else {
+                    Fluttertoast.showToast(
+                        fontSize: 16,
+                        msg: "Please Check all details",
+                        toastLength: Toast.LENGTH_SHORT);
+                  }
                 },
               ),
               SizedBox(height: 40),

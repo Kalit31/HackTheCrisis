@@ -99,7 +99,8 @@ class _LoginStep2State extends State<SignUpStep2> {
                     if (email.isNotEmpty &&
                         gstNumber.isNotEmpty &&
                         aadharNumber.isNotEmpty &&
-                        phoneNum.isNotEmpty) {
+                        phoneNum.isNotEmpty &&
+                        phoneNum.length == 10) {
                       final infoBox = await Hive.openBox('info');
                       infoBox.put('email', email);
                       infoBox.put('gstNumber', gstNumber);
@@ -108,7 +109,8 @@ class _LoginStep2State extends State<SignUpStep2> {
                       Routes.sailor('/phoneVerify');
                     } else {
                       Fluttertoast.showToast(
-                        msg: "Please enter all details",
+                        msg:
+                            "Please enter all details or check entered phone number",
                         toastLength: Toast.LENGTH_SHORT,
                       );
                     }

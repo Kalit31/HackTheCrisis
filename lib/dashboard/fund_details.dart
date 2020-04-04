@@ -76,7 +76,9 @@ class _FundDetailsState extends State<FundDetails> {
                           fontWeight: FontWeight.w600),
                     )),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
@@ -103,6 +105,53 @@ class _FundDetailsState extends State<FundDetails> {
                       ],
                     )),
               ),
+              SizedBox(height: 30),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                      margin: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.05),
+                      child: Text(
+                        "Transactions",
+                        style: TextStyle(fontFamily: "Poppins", fontSize: 30),
+                      ))),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    right: MediaQuery.of(context).size.width * 0.05,
+                    top: 30,
+                  ),
+                  child: ListView.builder(
+                      itemCount: 4,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          margin: EdgeInsets.only(bottom: 20),
+                          child: ListTile(
+                            title: Text(
+                              "Rs 10000",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24,fontFamily:"Poppins"),
+                            ),
+                            subtitle: Text(
+                              "14 March 2020",
+                              style: TextStyle(fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontFamily: "Poppins"
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              )
             ],
           ),
         ),
