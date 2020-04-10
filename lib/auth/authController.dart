@@ -60,7 +60,7 @@ class AuthController extends ChangeNotifier {
 
   Future<bool> verifySME() async {
     final infoBox = await Hive.openBox('info');
-    String aid = await infoBox.get('name');
+    String aid = await infoBox.get('AID');
     String panNumber = await infoBox.get('panNumber');
     String phoneNum = await infoBox.get('phoneNum');
 
