@@ -35,26 +35,28 @@ class _LoginPageState extends State<LoginPage> {
       var response = await dio
           .post("http://finhelp-api.herokuapp.com/register/signin/", data: arr);
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         print(response.data);
-
         var infoBox = await Hive.openBox("info");
-        String gstNumber = response.data["gstin"];
-        String city = response.data["city"];
-        String address = response.data["address"];
+        String aid = response.data["aid"];
+        String panNumber = response.data["pan_number"];
         String state = response.data["state"];
-        String aadharNumber = response.data["aadhar_no"].toString();
+        String district = response.data["district"];
+        String address = response.data["address"];
         String phoneNum = response.data["mobile_number"].toString();
         bool is_registered = response.data["is_registered"];
+        String status = response.data["status"];
+        String name = response.data["name"];
         String idToken = response.data["idtoken"];
-        infoBox.put("gstNumber", gstNumber);
-        infoBox.put("city", city);
+        infoBox.put("AID", aid);
+        infoBox.put("panNumber", panNumber);
         infoBox.put("state", state);
+        infoBox.put("district", district);
         infoBox.put("address", address);
-        infoBox.put("aadharNumber", aadharNumber);
         infoBox.put("phoneNum", phoneNum);
         infoBox.put("is_registered", is_registered);
+        infoBox.put("status", status);
+        infoBox.put("name", name);
         infoBox.put("idToken", idToken);
         setState(() {
           isprocessing = false;

@@ -4,6 +4,9 @@ import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:hackthecause/utils/customTextWidget.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+
+import '../authController.dart';
 
 class SignUpStep2 extends StatefulWidget {
   @override
@@ -11,20 +14,15 @@ class SignUpStep2 extends StatefulWidget {
 }
 
 class _LoginStep2State extends State<SignUpStep2> {
-  final emailController = TextEditingController();
-  final gstController = TextEditingController();
+  final aidController = TextEditingController();
+  final panController = TextEditingController();
   final aadharController = TextEditingController();
   final phoneController = TextEditingController();
 
-  String email = "";
-  String gstNumber = "";
-  String aadharNumber = "";
-  String phoneNum = "";
-
   @override
   void dispose() {
-    emailController.dispose();
-    gstController.dispose();
+    aidController.dispose();
+    panController.dispose();
     aadharController.dispose();
     phoneController.dispose();
     super.dispose();
@@ -62,14 +60,14 @@ class _LoginStep2State extends State<SignUpStep2> {
                   color: Colors.transparent,
                 ),
                 CustomTextWidget(
-                  value: "Enter Email",
-                  controller: emailController,
-                  type: "T",
+                  value: "Enter AID",
+                  controller: aidController,
+                  type: "N",
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
-                  value: "Enter GST Number",
-                  controller: gstController,
+                  value: "Enter PAN Number",
+                  controller: panController,
                   type: "T",
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
@@ -102,22 +100,38 @@ class _LoginStep2State extends State<SignUpStep2> {
                     ),
                   ),
                   onTap: () async {
-                    email = emailController.text;
-                    gstNumber = gstController.text;
-                    aadharNumber = aadharController.text;
-                    phoneNum = phoneController.text;
+                    String aid = aidController.text;
+                    String panNumber = panController.text;
+                    String aadharNumber = aadharController.text;
+                    String phoneNum = phoneController.text;
 
-                    if (email.isNotEmpty &&
-                        gstNumber.isNotEmpty &&
+                    if (aid.isNotEmpty &&
+                        panNumber.isNotEmpty &&
                         aadharNumber.isNotEmpty &&
                         phoneNum.isNotEmpty &&
                         phoneNum.length == 10) {
                       final infoBox = await Hive.openBox('info');
-                      infoBox.put('email', email);
-                      infoBox.put('gstNumber', gstNumber);
+                      infoBox.put('AID', aid);
+                      infoBox.put('panNumber', panNumber);
                       infoBox.put('aadharNumber', aadharNumber);
                       infoBox.put('phoneNum', phoneNum);
-                      Routes.sailor('/phoneVerify');
+                      final controller =
+                          Provider.of<AuthController>(context, listen: false);
+                      controller.verifySME().then((val) {
+                        if (val) {
+                          Routes.sailor('/phoneVerify');
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: "You are not registered as an SME",
+                            toastLength: Toast.LENGTH_SHORT,
+                          );
+                        }
+                      }).catchError((err) {
+                        Fluttertoast.showToast(
+                          msg: "Verification failed.",
+                          toastLength: Toast.LENGTH_SHORT,
+                        );
+                      });
                     } else {
                       Fluttertoast.showToast(
                         msg:

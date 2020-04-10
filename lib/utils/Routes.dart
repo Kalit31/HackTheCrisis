@@ -44,7 +44,10 @@ class Routes {
       SailorRoute(
         name: "/signUp2",
         builder: (context, args, params) {
-          return SignUpStep2();
+          return ChangeNotifierProvider(
+            create: (context) => AuthController(),
+            child: SignUpStep2(),
+          );
         },
       ),
       SailorRoute(
@@ -72,7 +75,6 @@ class Routes {
           name: "/verified",
           builder: (context, args, params) {
             bool isApplicable = params.param<bool>('isApplicable');
-            print("VALUE: " + isApplicable.toString());
             return VerifiedPage(
               isApplicable: isApplicable,
             );

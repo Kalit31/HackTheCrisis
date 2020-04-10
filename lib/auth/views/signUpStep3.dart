@@ -92,7 +92,7 @@ class _LoginStep3State extends State<SignUpStep3> {
                     if (password == confirmPassword) {
                       final infoBox = await Hive.openBox('info');
                       infoBox.put('password', password);
-                      authController.signUpUser().then((result) {
+                      authController.setPassword().then((result) {
                         if (result) {
                           Fluttertoast.showToast(
                               msg: "User registered successfully",
@@ -103,7 +103,11 @@ class _LoginStep3State extends State<SignUpStep3> {
                               msg: "SignUp Failed.",
                               toastLength: Toast.LENGTH_SHORT);
                         }
-                      }).catchError((err) {});
+                      }).catchError((err) {
+                        Fluttertoast.showToast(
+                            msg: "SignUp Failed.",
+                            toastLength: Toast.LENGTH_SHORT);
+                      });
                     } else {
                       Fluttertoast.showToast(
                         msg: "Passwords do not match",
