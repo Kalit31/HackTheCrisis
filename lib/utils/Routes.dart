@@ -4,7 +4,6 @@ import 'package:hackthecause/auth/views/phoneVerification.dart';
 import 'package:hackthecause/auth/views/signUpStep1.dart';
 import 'package:hackthecause/auth/views/signUpStep2.dart';
 import 'package:hackthecause/auth/views/signUpStep3.dart';
-import 'package:hackthecause/businessVerification/businessDetails.dart';
 import 'package:hackthecause/businessVerification/showDetails.dart';
 import 'package:hackthecause/businessVerification/verificationController.dart';
 import 'package:hackthecause/dashboard/dashboard.dart';
@@ -115,15 +114,6 @@ class Routes {
         name: "/reportLosses",
         builder: (context, args, params) {
           return ReportLosses();
-        },
-      ),
-      SailorRoute(
-        name: "/businessDetails",
-        builder: (context, args, params) {
-          return ChangeNotifierProvider(
-            create: (context) => VerificationController(),
-            child: BusinessDetails(),
-          );
         },
       ),
       SailorRoute(
