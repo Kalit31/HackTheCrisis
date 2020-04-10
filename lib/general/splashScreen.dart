@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -6,6 +7,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +58,13 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: MediaQuery.of(context).size.height * 0.15,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, '/login');
+                  onTap: () async {
+                    var info = await Hive.openBox('info');
+
+                    if (info.get("state") != null) {
+                      Navigator.popAndPushNamed(context, '/dashBoard');
+                    } else
+                      Navigator.popAndPushNamed(context, '/login');
                   },
                   child: Container(
                       decoration: BoxDecoration(
@@ -74,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
                             fontWeight: FontWeight.bold),
                       ))),
                 ),
-                SizedBox(height:20)
+                SizedBox(height: 20)
               ],
             ),
           ),

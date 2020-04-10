@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   bool isprocessing = false;
-  Future login() async {
+  Future login(BuildContext context) async {
     setState(() {
       isprocessing = true;
     });
@@ -31,41 +31,48 @@ class _LoginPageState extends State<LoginPage> {
       "password": passwordController.text
     };
     // dio.options.headers["X-AUTH"] = "0ac6859b-8fa9-4d7a-b24e-61e4a42b6079";
-    var response = await dio
-        .post("http://finhelp-api.herokuapp.com/register/signin/", data: arr);
+    try {
+      var response = await dio
+          .post("http://finhelp-api.herokuapp.com/register/signin/", data: arr);
 
-    if (response.statusCode == 200) {
-      print(response.data);
-      
-      var infoBox = await Hive.openBox("info");
-      String gstNumber = response.data["gstin"];
-      String city = response.data["city"];
-      String address = response.data["address"];
-      String state = response.data["state"];
-      String aadharNumber = response.data["aadhar_no"].toString();
-      String phoneNum = response.data["mobile_number"].toString();
-      bool is_registered = response.data["is_registered"];
-      String idToken = response.data["idtoken"];
-      infoBox.put("gstNumber", gstNumber);
-      infoBox.put("city", city);
-      infoBox.put("state", state);
-      infoBox.put("address", address);
-      infoBox.put("aadharNumber", aadharNumber);
-      infoBox.put("phoneNum", phoneNum);
-      infoBox.put("is_registered", is_registered);
-      infoBox.put("idToken", idToken);
-      setState(() {
-        isprocessing = false;
-      });
-      Routes.sailor("/guidelines");
-    } else {
-      setState(() {
-        isprocessing = false;
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        print(response.data);
+
+        var infoBox = await Hive.openBox("info");
+        String gstNumber = response.data["gstin"];
+        String city = response.data["city"];
+        String address = response.data["address"];
+        String state = response.data["state"];
+        String aadharNumber = response.data["aadhar_no"].toString();
+        String phoneNum = response.data["mobile_number"].toString();
+        bool is_registered = response.data["is_registered"];
+        String idToken = response.data["idtoken"];
+        infoBox.put("gstNumber", gstNumber);
+        infoBox.put("city", city);
+        infoBox.put("state", state);
+        infoBox.put("address", address);
+        infoBox.put("aadharNumber", aadharNumber);
+        infoBox.put("phoneNum", phoneNum);
+        infoBox.put("is_registered", is_registered);
+        infoBox.put("idToken", idToken);
+        setState(() {
+          isprocessing = false;
+        });
         Fluttertoast.showToast(
-            msg: "Login Failed", toastLength: Toast.LENGTH_LONG);
-      });
+            msg: "Login Successful!", toastLength: Toast.LENGTH_SHORT);
+        Routes.sailor("/dashBoard");
+      } else {
+        setState(() {
+          Scaffold.of(context).showSnackBar(SnackBar(content: Text("Failed!")));
+        });
+      }
+    } on Exception catch (e) {
+      Fluttertoast.showToast(msg: "Failed", toastLength: Toast.LENGTH_SHORT);
     }
   }
+
+  GlobalKey key;
 
   String phoneno, password;
 
@@ -157,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                     phoneno = phoneController.text;
                     password = passwordController.text;
                     if (phoneno.length == 10 && password.isNotEmpty) {
-                      login();
+                      login(context);
                     } else {
                       Fluttertoast.showToast(
                           fontSize: 16,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hackthecause/guidelines/guidelines.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,11 +12,17 @@ class ProfilePage extends StatefulWidget {
 SharedPreferences sharedPreferences;
 
 class _ProfilePageState extends State<ProfilePage> {
+  String name;
   List arr = ["Guidelines", "Funds Recieved", "Edit Details"];
   List images = ["guidelines.png", "funds.png", "details.png"];
   List routes = ["/guidelines", "/funds", "/funds"];
 
   Future getprefs() async {
+    var infobox = await Hive.openBox('info');
+    setState(() {
+      name = infobox.get("name");
+    });
+    print(name);
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
@@ -37,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Container(
                 margin: EdgeInsets.all(20),
                 child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       List<String> status = [
                         "False",
                         "False",
@@ -47,6 +54,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       if (sharedPreferences.getStringList("Status") != null) {
                         sharedPreferences.setStringList("Status", status);
                       }
+                      var infobox = await Hive.openBox('info');
+                      infobox.delete("state");
+
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           "/login", (Route<dynamic> route) => false);
                     },
@@ -89,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 20),
                 Center(
                   child: Text(
-                    "AYUSH",
+                    name != null ? name : "no name",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "Poppins",
