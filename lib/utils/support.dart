@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackthecause/general/guidelines.dart';
+import 'package:hackthecause/guidelines/guidelines.dart';
 import 'package:hackthecause/utils/Constants.dart';
 
 import 'Routes.dart';
@@ -60,10 +60,10 @@ class _SupportState extends State<Support> {
                         ),
                       ),
                       onTap: () {
-                     Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => new GuideLines(
-                                            profilepage: true,
-                                          )));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => new GuideLines(
+                                  profilepage: true,
+                                )));
                       },
                     ),
                     GestureDetector(

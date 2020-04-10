@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hackthecause/utils/customTextWidget.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
@@ -53,34 +54,16 @@ class _LoginStep3State extends State<SignUpStep3> {
                   height: MediaQuery.of(context).size.height * 0.2,
                   color: Colors.transparent,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Enter Password",
-                    ),
-                    controller: passwordController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
+                CustomTextWidget(
+                  value: "Enter Password",
+                  type: "T",
+                  controller: passwordController,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: TextField(
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                    ),
-                    controller: confirmPassController,
-                    showCursor: true,
-                    style: loginInputText,
-                  ),
-                  height: 30,
+                CustomTextWidget(
+                  value: "Confirm Password",
+                  type: "T",
+                  controller: confirmPassController,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
@@ -120,9 +103,7 @@ class _LoginStep3State extends State<SignUpStep3> {
                               msg: "SignUp Failed.",
                               toastLength: Toast.LENGTH_SHORT);
                         }
-                      }).catchError((err) {
-                       
-                      });
+                      }).catchError((err) {});
                     } else {
                       Fluttertoast.showToast(
                         msg: "Passwords do not match",

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackthecause/general/guidelines.dart';
+import 'package:hackthecause/guidelines/guidelines.dart';
 import 'package:hackthecause/utils/Routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

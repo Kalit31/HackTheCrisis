@@ -1,22 +1,26 @@
-import 'package:hackthecause/Verified.dart';
 import 'package:hackthecause/auth/authController.dart';
 import 'package:hackthecause/auth/views/login_page.dart';
 import 'package:hackthecause/auth/views/phoneVerification.dart';
 import 'package:hackthecause/auth/views/signUpStep1.dart';
 import 'package:hackthecause/auth/views/signUpStep2.dart';
 import 'package:hackthecause/auth/views/signUpStep3.dart';
+import 'package:hackthecause/businessVerification/businessDetails.dart';
+import 'package:hackthecause/businessVerification/showDetails.dart';
+import 'package:hackthecause/businessVerification/verificationController.dart';
 import 'package:hackthecause/dashboard/dashboard.dart';
 import 'package:hackthecause/dashboard/fund_details.dart';
 import 'package:hackthecause/dashboard/main_dashboard.dart';
 import 'package:hackthecause/general/eligibilityInvestment.dart';
 import 'package:hackthecause/general/eligibilitySector.dart';
-import 'package:hackthecause/general/guidelines.dart';
 import 'package:hackthecause/general/otherLosses.dart';
 import 'package:hackthecause/general/reportLosses.dart';
 import 'package:hackthecause/general/splashScreen.dart';
+import 'package:hackthecause/guidelines/guidelines.dart';
 import 'package:hackthecause/utils/support.dart';
 import 'package:provider/provider.dart';
 import 'package:sailor/sailor.dart';
+
+import 'Verified.dart';
 
 class Routes {
   static final sailor = Sailor(
@@ -132,6 +136,21 @@ class Routes {
         name: "/reportLosses",
         builder: (context, args, params) {
           return ReportLosses();
+        },
+      ),
+      SailorRoute(
+        name: "/businessDetails",
+        builder: (context, args, params) {
+          return ChangeNotifierProvider(
+            create: (context) => VerificationController(),
+            child: BusinessDetails(),
+          );
+        },
+      ),
+      SailorRoute(
+        name: "/showBusinessDetails",
+        builder: (context, args, params) {
+          return ShowBusinessDetails();
         },
       ),
     ]);

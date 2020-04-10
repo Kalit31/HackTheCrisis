@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hackthecause/general/documentGuidelines.dart';
-import 'package:hackthecause/general/eligibilityGuidelines.dart';
-import 'package:hackthecause/general/generalGuidelines.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'documentGuidelines.dart';
+import 'eligibilityGuidelines.dart';
+import 'generalGuidelines.dart';
 
 class GuideLines extends StatefulWidget {
-bool profilepage;
-GuideLines({this.profilepage});
+  bool profilepage;
+  GuideLines({this.profilepage});
 
   @override
   _GuideLinesState createState() => _GuideLinesState();
@@ -29,7 +29,7 @@ class _GuideLinesState extends State<GuideLines>
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-         // physics: NeverScrollableScrollPhysics(),
+          // physics: NeverScrollableScrollPhysics(),
           child: SafeArea(
             minimum: const EdgeInsets.fromLTRB(0, 0, 0, 16),
             child: SingleChildScrollView(
@@ -95,33 +95,40 @@ class _GuideLinesState extends State<GuideLines>
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
-                   widget.profilepage?Container(): Expanded(
-                      flex: 3,
-                      child: Align(
-                        child: GestureDetector(
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(
-                              height: 50,
-                              padding: const EdgeInsets.all(8),
-                              margin: EdgeInsets.only(
-                                  right:
-                                      MediaQuery.of(context).size.width * 0.1,
-                                  bottom: 20),
-                              decoration: loginButtonDecoration,
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              child: Center(
-                                child: Text("Next", style: loginButtonText),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    widget.profilepage
+                        ? Container()
+                        : Expanded(
+                            flex: 3,
+                            child: Align(
+                              child: GestureDetector(
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: Container(
+                                    height: 50,
+                                    padding: const EdgeInsets.all(8),
+                                    margin: EdgeInsets.only(
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.1,
+                                        bottom: 20),
+                                    decoration: loginButtonDecoration,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.35,
+                                    child: Center(
+                                      child:
+                                          Text("Next", style: loginButtonText),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () async {
+                                  Routes.sailor('/eliSector');
+                                },
                               ),
                             ),
                           ),
-                          onTap: () async {
-                            Routes.sailor('/eliSector');
-                          },
-                        ),
-                      ),
-                    ),
                     Divider(
                       height: MediaQuery.of(context).size.height * 0.05,
                       color: Colors.transparent,

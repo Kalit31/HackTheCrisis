@@ -4,8 +4,9 @@ import 'package:hackthecause/utils/Constants.dart';
 class CustomTextWidget extends StatelessWidget {
   final TextEditingController controller;
   final String value;
+  final String type;
 
-  const CustomTextWidget({Key key, this.value, this.controller})
+  const CustomTextWidget({Key key, this.value, this.controller, this.type})
       : super(key: key);
 
   @override
@@ -13,9 +14,7 @@ class CustomTextWidget extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.6,
       child: TextField(
-        keyboardType: value == "Enter Phone Number"
-            ? TextInputType.number
-            : TextInputType.text,
+        keyboardType: type == "N" ? TextInputType.number : TextInputType.text,
         decoration: InputDecoration(
             hintText: value,
             hintStyle: TextStyle(fontSize: 20, fontFamily: "Poppins")),

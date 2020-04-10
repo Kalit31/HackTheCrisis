@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hackthecause/utils/customTextWidget.dart';
 import 'package:hive/hive.dart';
-
-import 'customTextWidget.dart';
 
 class SignUpStep2 extends StatefulWidget {
   @override
@@ -63,16 +62,28 @@ class _LoginStep2State extends State<SignUpStep2> {
                   color: Colors.transparent,
                 ),
                 CustomTextWidget(
-                    value: "Enter Email", controller: emailController),
+                  value: "Enter Email",
+                  controller: emailController,
+                  type: "T",
+                ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
-                    value: "Enter GST Number", controller: gstController),
+                  value: "Enter GST Number",
+                  controller: gstController,
+                  type: "T",
+                ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
-                    value: "Enter Aadhar Number", controller: aadharController),
+                  value: "Enter Aadhar Number",
+                  controller: aadharController,
+                  type: "N",
+                ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
-                    value: "Enter Phone Number", controller: phoneController),
+                  value: "Enter Phone Number",
+                  controller: phoneController,
+                  type: "N",
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
                 ),
@@ -106,13 +117,7 @@ class _LoginStep2State extends State<SignUpStep2> {
                       infoBox.put('gstNumber', gstNumber);
                       infoBox.put('aadharNumber', aadharNumber);
                       infoBox.put('phoneNum', phoneNum);
-                      print('-----------------');
-                      print(email);
-                      print(gstNumber);
-                      print(aadharNumber);
-                      print(phoneNum);
-                      print('-----------------');
-                        Routes.sailor('/phoneVerify');
+                      Routes.sailor('/phoneVerify');
                     } else {
                       Fluttertoast.showToast(
                         msg:

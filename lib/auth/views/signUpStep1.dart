@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hackthecause/auth/views/customTextWidget.dart';
 import 'package:hackthecause/utils/Constants.dart';
 import 'package:hackthecause/utils/Routes.dart';
+import 'package:hackthecause/utils/customTextWidget.dart';
 import 'package:hive/hive.dart';
 
 class SignUpStep1 extends StatefulWidget {
@@ -64,21 +64,25 @@ class _SignUpStep1State extends State<SignUpStep1> {
                 CustomTextWidget(
                   value: "Enter name",
                   controller: nameController,
+                  type: "T",
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
                   value: "Enter Address",
                   controller: addressController,
+                  type: "T",
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
                   value: "Enter State",
                   controller: stateController,
+                  type: "T",
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                 CustomTextWidget(
                   value: "Enter City",
                   controller: cityController,
+                  type: "T",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
@@ -111,12 +115,7 @@ class _SignUpStep1State extends State<SignUpStep1> {
                       infoBox.put('address', address);
                       infoBox.put('state', state);
                       infoBox.put('city', city);
-                      print('-------------');
-                      print(name);
-                      print(address);
-                      print(state);
-                      print(city);
-                      print('-------------');
+
                       Routes.sailor('/signUp2');
                     } else {
                       Fluttertoast.showToast(
