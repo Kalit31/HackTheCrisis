@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackthecause/utils/Constants.dart';
+import 'package:hackthecause/utils/Routes.dart';
 import 'package:hackthecause/utils/customTextWidget.dart';
 import 'package:provider/provider.dart';
 
@@ -121,7 +122,7 @@ class _BusinessDetailsState extends State<BusinessDetails> {
                           ),
                         ),
                         onTap: () async {
-                          await controller.verify();
+                          Routes.sailor('/showBusinessDetails');
                         },
                       ),
                     ],

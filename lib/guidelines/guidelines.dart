@@ -124,7 +124,7 @@ class _GuideLinesState extends State<GuideLines>
                                   ),
                                 ),
                                 onTap: () async {
-                                  Routes.sailor('/eliSector');
+                                  Routes.sailor('/businessDetails');
                                 },
                               ),
                             ),

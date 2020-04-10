@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hackthecause/utils/Routes.dart';
+import 'package:hackthecause/utils/pdfViewerPage.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'verificationController.dart';
 
 class ShowBusinessDetails extends StatefulWidget {
   @override
@@ -6,6 +12,7 @@ class ShowBusinessDetails extends StatefulWidget {
 }
 
 class _ShowBusinessDetailsState extends State<ShowBusinessDetails> {
+  String text = "Download data";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,14 +164,47 @@ class _ShowBusinessDetailsState extends State<ShowBusinessDetails> {
                       ),
                     ),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Routes.sailor('/reportLosses');
+                  },
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Text(
-                    "Download Data",
-                    style: TextStyle(
-                      color: Color(0xff4C46D3),
+                GestureDetector(
+                  onTap: () async {
+                    final String dir =
+                        (await getApplicationDocumentsDirectory()).path;
+                    final String path = '$dir/test.pdf';
+                    final controller = Provider.of<VerificationController>(
+                        context,
+                        listen: false);
+                    if (text == "Download data") {
+                      controller.generatePdf(path).then((val) {
+                        if (val) {
+                          setState(() {
+                            text = "View Data";
+                          });
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Failed!", toastLength: Toast.LENGTH_SHORT);
+                        }
+                      }).catchError((err) {
+                        Fluttertoast.showToast(
+                            msg: "Failed!", toastLength: Toast.LENGTH_SHORT);
+                      });
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => PdfViewerPage(path: path),
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                        color: Color(0xff4C46D3),
+                      ),
                     ),
                   ),
                 ),

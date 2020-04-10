@@ -12,18 +12,23 @@ class _VerifiedPageState extends State<VerifiedPage> {
   String imageAsset;
   String displayMessage;
   String subtitle;
+  String title;
+  String buttonText;
   @override
   void initState() {
     if (widget.isApplicable) {
-      imageAsset = "images/tick.png";
+      imageAsset = "images/warning.png";
+      title = "Warning";
       displayMessage =
-          "Your business is eligible for \n COVID-19 Financial compensations scheme";
-      subtitle = "Please proceed to the dashboard now";
+          "Inaccurate reporting of losses due to any reason is considered a criminal offence";
+      subtitle = "Kindly recheck the details before proceeding further.";
+      buttonText = "Submit";
     } else {
-      imageAsset = "images/cross.png";
+      imageAsset = "images/error.png";
       displayMessage =
-          "Your business is not eligible for COVID-19 Financial compensations scheme";
-      subtitle = "Only small businesses are eligible";
+          "Your business is not registered as a SME with the government records.";
+      subtitle = "Check your details again";
+      buttonText = "Edit Details";
     }
 
     super.initState();
@@ -43,77 +48,61 @@ class _VerifiedPageState extends State<VerifiedPage> {
                 height: 200,
                 width: 200,
               )),
+              Text(title ?? "",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Color(0xff4C46D3),
+                      fontSize: 25,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.w600)),
               SizedBox(height: 15),
               Text(displayMessage ?? "",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600)),
+                    color: Color(0xff4C46D3),
+                    fontSize: 18,
+                    fontFamily: "Poppins",
+                  )),
               SizedBox(
                 height: 10,
               ),
-              Text(subtitle ?? '',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600)),
+              Text(
+                subtitle ?? '',
+                style: TextStyle(
+                  color: Color(0xff4C46D3),
+                  fontSize: 18,
+                  fontFamily: "Poppins",
+                ),
+                textAlign: TextAlign.center,
+              ),
               SizedBox(
                 height: 20,
               ),
-              widget.isApplicable
-                  ? GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xff4C46D3),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        height: 50,
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Center(
-                          child: Text(
-                            "Proceed to Dashboard",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: "Poppins",
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(context, '/dashBoard',
-                            (Route<dynamic> route) => false);
-                      },
-                    )
-                  : GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(context,
-                            '/guidelines', (Route<dynamic> route) => false);
-                      },
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color(0xff4C46D3), blurRadius: 1)
-                              ],
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                          height: 50,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Center(
-                              child: Text(
-                            "Check guidelines",
-                            style: TextStyle(
-                                color: Color(0xff4C46D3),
-                                fontSize: 20,
-                                fontFamily: "Poppins",
-                                fontWeight: FontWeight.bold),
-                          ))),
+              GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Color(0xff4C46D3),
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Center(
+                    child: Text(
+                      buttonText,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.bold),
                     ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      widget.isApplicable ? '/dashBoard' : '/businessDetails',
+                      (Route<dynamic> route) => false);
+                },
+              )
             ],
           ),
         ),

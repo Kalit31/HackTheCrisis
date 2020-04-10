@@ -10,9 +10,6 @@ import 'package:hackthecause/businessVerification/verificationController.dart';
 import 'package:hackthecause/dashboard/dashboard.dart';
 import 'package:hackthecause/dashboard/fund_details.dart';
 import 'package:hackthecause/dashboard/main_dashboard.dart';
-import 'package:hackthecause/general/eligibilityInvestment.dart';
-import 'package:hackthecause/general/eligibilitySector.dart';
-import 'package:hackthecause/general/otherLosses.dart';
 import 'package:hackthecause/general/reportLosses.dart';
 import 'package:hackthecause/general/splashScreen.dart';
 import 'package:hackthecause/guidelines/guidelines.dart';
@@ -95,20 +92,6 @@ class Routes {
         },
       ),
       SailorRoute(
-        name: "/eliSector",
-        builder: (context, args, params) {
-          return EligibilitySector();
-        },
-      ),
-      SailorRoute(
-          name: "/eliInvestment",
-          builder: (context, args, params) {
-            return EligibilityInvestment(
-              sector: params.param<String>('sector'),
-            );
-          },
-          params: [SailorParam<String>(name: 'sector', defaultValue: 'other')]),
-      SailorRoute(
         name: "/mainDashBoard",
         builder: (context, args, params) {
           return MainDashBoard();
@@ -118,12 +101,6 @@ class Routes {
         name: "/support",
         builder: (context, args, params) {
           return Support();
-        },
-      ),
-      SailorRoute(
-        name: "/otherLosses",
-        builder: (context, args, params) {
-          return OtherLosses();
         },
       ),
       SailorRoute(
@@ -150,7 +127,9 @@ class Routes {
       SailorRoute(
         name: "/showBusinessDetails",
         builder: (context, args, params) {
-          return ShowBusinessDetails();
+          return ChangeNotifierProvider(
+              create: (context) => VerificationController(),
+              child: ShowBusinessDetails());
         },
       ),
     ]);
