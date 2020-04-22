@@ -48,7 +48,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       List<String> status = [
                         "False",
                         "False",
-                        "False",
                         "False"
                       ];
                       if (sharedPreferences.getStringList("Status") != null) {

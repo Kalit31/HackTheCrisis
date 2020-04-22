@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hackthecause/utils/Constants.dart';
@@ -14,6 +15,24 @@ class _ReportLossesState extends State<ReportLosses> {
   int approxLoss = 0;
   int income = 0;
   int investment = 0;
+  Future reportLosses() async {
+    var infobox = await Hive.openBox('info');
+    String idToken = infobox.get("idToken");
+    Dio dio = new Dio();
+    try {
+      dio.options.headers["X-AUTH"] = idToken;
+
+      var arr = {"reported_loss": approxLoss};
+      var response = await dio.patch(
+          "http://finhelp-api.herokuapp.com/register/updateuserdata/",
+          data: arr);
+          print(response.data);
+      if (response.statusCode == 200) return true;
+    } on Exception catch (e) {
+      Fluttertoast.showToast(msg: "Failed. please try again");
+      return false;
+    }
+  }
 
   final businessController = TextEditingController();
   final lossController = TextEditingController();
@@ -137,9 +156,11 @@ class _ReportLossesState extends State<ReportLosses> {
                       approxLoss = int.parse(lossController.text);
                       investment = int.parse(investmentController.text);
                     } catch (err) {}
-
-                    Routes.sailor
-                        .navigate("/verified", params: {'isApplicable': true});
+                    bool a = await reportLosses();
+                    
+                      Routes.sailor.navigate("/verified",
+                          params: {'isApplicable': true});
+                    
                   },
                 )
               ],

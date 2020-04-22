@@ -99,7 +99,7 @@ class _VerifiedPageState extends State<VerifiedPage> {
                 onTap: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context,
-                      widget.isApplicable ? '/dashBoard' : '/guidelines',
+                      widget.isApplicable ? '/warning' : '/businessDetails',
                       (Route<dynamic> route) => false);
                 },
               )

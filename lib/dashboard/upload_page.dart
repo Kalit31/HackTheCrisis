@@ -1,10 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hackthecause/utils/Routes.dart';
 import 'package:hive/hive.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 List<String> status = ["False", "False", "False", "False"];
@@ -25,57 +26,90 @@ class _UploadPageState extends State<UploadPage> {
     }
   }
 
-  var images = [
-    "images/aadhar.png",
-    "images/pan.png",
-    "images/documents.png",
-    "images/documents.png"
-  ];
+  var images = ["images/aadhar.png", "images/pan.png", "images/documents.png"];
 
-  var name = ["Aadhar Card", "Pan Card", "Investment Proof", "Income Proof"];
+  var name = ["Aadhar Card", "Pan Card", "Income Tax Returns"];
   bool isProcessing = false;
   Future uploadImage(int index) async {
     setState(() {
       isProcessing = true;
     });
     final infoBox = await Hive.openBox("info");
-    String idtoken = infoBox.get("idToken");
-    Dio dio = new Dio();
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    String filename = image.path.split('/').last;
-    FormData formData = FormData.fromMap({
-      "file": await MultipartFile.fromFile(image.path, filename: filename),
-      "name": name[index]
-    });
-    dio.options.headers["X-AUTH"] = idtoken;
-    var response = await dio.post(
-        "http://finhelp-api.herokuapp.com/register/upload/",
-        data: formData);
-
-    if (response.statusCode == 200) {
-      setState(() {
-        isProcessing = false;
-        if (image != null) {
-          if (sharedPreferences.getStringList("Status") != null) {
-            status = sharedPreferences.getStringList("Status");
-            status[index] = "True";
-            sharedPreferences.setStringList("Status", status);
-          } else {
-            status[index] = "True";
-            sharedPreferences.setStringList("Status", status);
-          }
-        }
-      });
-      Fluttertoast.showToast(
-          msg: "Upload Successful.", toastLength: Toast.LENGTH_LONG);
-    } else {
-      setState(() {
-        isProcessing = false;
-      });
-      Fluttertoast.showToast(
-          msg: "Upload Failed.Please Try Again",
-          toastLength: Toast.LENGTH_LONG);
+    String idToken = infoBox.get("idToken");
+    print(idToken);
+    for (int i = 0; i < infoBox.length; i++) {
+      print(infoBox.getAt(i).toString() + ":" +infoBox.keyAt(i));
     }
+    Dio dio = new Dio();
+    File doc = await FilePicker.getFile(
+        allowedExtensions: ['pdf'], type: FileType.custom);
+
+    if (doc != null) {
+      String filename = doc.path.split('/').last;
+      FormData formData = FormData.fromMap({
+        "file": await MultipartFile.fromFile(doc.path, filename: filename),
+        "name": name[index]
+      });
+      dio.options.headers["X-AUTH"] = idToken;
+      try {
+        var response = await dio.post(
+            "http://finhelp-api.herokuapp.com/register/upload/",
+            data: formData);
+
+        if (response.statusCode == 200) {
+          print(response.statusCode);
+          print(response.data.toString());
+          setState(() {
+            isProcessing = false;
+            if (doc != null) {
+              if (sharedPreferences.getStringList("Status") != null) {
+                status = sharedPreferences.getStringList("Status");
+                status[index] = "True";
+                sharedPreferences.setStringList("Status", status);
+              } else {
+                status[index] = "True";
+                sharedPreferences.setStringList("Status", status);
+              }
+            }
+          });
+          Fluttertoast.showToast(
+              msg: "Upload Successful.", toastLength: Toast.LENGTH_LONG);
+        } else if(response.statusMessage=="Document Already Exists"){
+          setState(() {
+            isProcessing = false;
+              Fluttertoast.showToast(
+              msg: "Upload Failed.Please Try Again",
+              toastLength: Toast.LENGTH_LONG);
+          });
+        
+        }
+      } on DioError catch (e) {
+        print(e.response.statusMessage);
+        if(e.response.toString()=="Document Already Exists"){
+          setState(() {
+             if (sharedPreferences.getStringList("Status") != null) {
+                status = sharedPreferences.getStringList("Status");
+                status[index] = "True";
+                sharedPreferences.setStringList("Status", status);
+              } else {
+                status[index] = "True";
+                sharedPreferences.setStringList("Status", status);
+              }
+          });
+             Fluttertoast.showToast(
+              msg: "File already uploaded",
+              toastLength: Toast.LENGTH_LONG);
+        }
+        else
+           Fluttertoast.showToast(
+              msg: "Upload Failed.Please Try Again",
+              toastLength: Toast.LENGTH_LONG);
+      }
+    }
+    setState(() {
+      isProcessing=false;
+
+    });
   }
 
   @override
@@ -111,7 +145,7 @@ class _UploadPageState extends State<UploadPage> {
                     child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: 4,
+                        itemCount: 3,
                         itemBuilder: (context, index) {
                           return Container(
                             child: Column(
@@ -179,7 +213,7 @@ class _UploadPageState extends State<UploadPage> {
                                         style: TextStyle(
                                             color: Colors.red,
                                             fontFamily: "Poppins",
-                                            fontSize: 20),
+                                            fontSize: 18),
                                       ),
                                     )
                                   ],
@@ -205,7 +239,9 @@ class _UploadPageState extends State<UploadPage> {
             ),
             isProcessing
                 ? Center(
-                    child: CircularProgressIndicator(backgroundColor: Colors.grey,),
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.grey,
+                    ),
                   )
                 : SizedBox(),
           ],

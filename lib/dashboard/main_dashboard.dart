@@ -27,8 +27,7 @@ class _MainDashBoardState extends State<MainDashBoard> {
         List status = sharedPreferences.getStringList("Status");
         if (status[1] == completed[1] &&
             status[0] == completed[0] &&
-            status[2] == completed[2] &&
-            status[3] == completed[3]) {
+            status[2] == completed[2] ) {
           print(status.length);
           documentsuploaded = true;
           review = true;
